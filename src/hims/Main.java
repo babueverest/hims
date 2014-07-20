@@ -4,6 +4,7 @@
  */
 package hims;
 
+import com.whiteclover.himss.MainWindow;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
