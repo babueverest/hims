@@ -30,11 +30,21 @@ public class MainWindow extends javax.swing.JFrame {
 
         menuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        addBuyDetails = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("File");
+
+        addBuyDetails.setText("Add Buy Details");
+        addBuyDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBuyDetailsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(addBuyDetails);
+
         menuBar.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -55,6 +65,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addBuyDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBuyDetailsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addBuyDetailsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -92,6 +106,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem addBuyDetails;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar menuBar;
