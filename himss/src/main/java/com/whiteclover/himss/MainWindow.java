@@ -6,6 +6,9 @@
 
 package com.whiteclover.himss;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author Akash
@@ -31,6 +34,7 @@ public class MainWindow extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         addBuyDetails = new javax.swing.JMenuItem();
+        addChangeDetails = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,6 +48,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jMenu1.add(addBuyDetails);
+
+        addChangeDetails.setText("Add Change Details");
+        addChangeDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addChangeDetailsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(addChangeDetails);
 
         menuBar.add(jMenu1);
 
@@ -69,6 +81,12 @@ public class MainWindow extends javax.swing.JFrame {
     private void addBuyDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBuyDetailsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addBuyDetailsActionPerformed
+
+    private void addChangeDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChangeDetailsActionPerformed
+        AddSalesDetails frame = new AddSalesDetails();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }//GEN-LAST:event_addChangeDetailsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,6 +125,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addBuyDetails;
+    private javax.swing.JMenuItem addChangeDetails;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar menuBar;
