@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.whiteclover.himss;
 
 import java.awt.Color;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -17,8 +18,9 @@ import java.util.Date;
 public class AddSalesDetails extends javax.swing.JFrame {
 
     /**
-     * Creates new form AddSalesDetails
-     */
+             * Creates new form AddSalesDetails
+             */
+
     public AddSalesDetails() {
         initComponents();
     }
@@ -34,8 +36,6 @@ public class AddSalesDetails extends javax.swing.JFrame {
 
         date = new com.toedter.calendar.JDateChooser();
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         customerName = new javax.swing.JTextField();
@@ -47,17 +47,12 @@ public class AddSalesDetails extends javax.swing.JFrame {
         rate = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
         errorPlace = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         date.setDate(new Date());
-
-        list.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(list);
 
         jLabel1.setText("Date");
 
@@ -76,33 +71,40 @@ public class AddSalesDetails extends javax.swing.JFrame {
             }
         });
 
+        tableModel = new AddSalesDetailTableModel();
+        table.setModel(tableModel);
+        jScrollPane2.setViewportView(table);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(addButton)
-                        .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(customerName)
-                                .addComponent(productID)
-                                .addComponent(quantity)
-                                .addComponent(rate)
-                                .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))))
-                    .addComponent(errorPlace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(183, Short.MAX_VALUE))
+                                .addComponent(addButton)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel1))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(customerName)
+                                        .addComponent(productID)
+                                        .addComponent(quantity)
+                                        .addComponent(rate)
+                                        .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))))
+                            .addComponent(errorPlace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 304, Short.MAX_VALUE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,9 +134,9 @@ public class AddSalesDetails extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(addButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -143,26 +145,28 @@ public class AddSalesDetails extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         errorPlace.setText("");
-        String dateSel = this.date.getDate().toString();
+        Date dateSel = this.date.getDate();
         String nameSel = this.customerName.getText();
         String productIDSel = this.productID.getText();
         int quantitySel = 0, rateSel = 0;
         try {
-            quantitySel = Integer.parseInt( this.quantity.getText() );
-        } catch(NumberFormatException e){
+            quantitySel = Integer.parseInt(this.quantity.getText());
+        } catch (NumberFormatException e) {
             errorPlace.setForeground(Color.RED);
             errorPlace.setText("* Quantity isn't number.");
             return;
         }
         try {
-            rateSel = Integer.parseInt( this.rate.getText() );
-        } catch(NumberFormatException e){
+            rateSel = Integer.parseInt(this.rate.getText());
+        } catch (NumberFormatException e) {
             errorPlace.setForeground(Color.RED);
             errorPlace.setText("* Rate isn't number.");
             return;
         }
-        
+
         System.out.println(dateSel + " " + nameSel + " " + productIDSel + " " + quantitySel + " " + rateSel);
+        SalesDetail newData = new SalesDetail(dateSel, nameSel, productIDSel, quantitySel, rateSel);
+        tableModel.append(newData);
     }//GEN-LAST:event_addButtonActionPerformed
 
     /**
@@ -210,11 +214,79 @@ public class AddSalesDetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JList list;
     private javax.swing.JTextField productID;
     private javax.swing.JTextField quantity;
     private javax.swing.JTextField rate;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
+    private AddSalesDetailTableModel tableModel;
+    
+    
+    class AddSalesDetailTableModel extends AbstractTableModel {
+        private ArrayList<SalesDetail> data;
+        private String[] columns = { // Administrator will need to show the column Uploader as well.
+            "Date",
+            "Name",
+            "ProductID",
+            "Quantity",
+            "Rate"
+        };
+
+        AddSalesDetailTableModel() {
+            this.data = new ArrayList<SalesDetail>();
+        }
+
+
+        @Override
+        public Object getValueAt(int row, int column) {
+
+            switch (columns[column]) {
+                case "Date":
+                    return data.get(row).getDate();
+                case "Name":
+                    return data.get(row).getName();
+                case "ProductID":
+                    return data.get(row).getProductID();
+                case "Quantity":
+                    return data.get(row).getQuantity();
+                case "Rate":
+                    return data.get(row).getRate();
+                default:
+                    System.err.println("Logic Error");
+            }
+            return "";
+        }
+
+        @Override
+        public int getColumnCount() {
+            return columns.length;
+        }
+
+        @Override
+        public Class getColumnClass(int column) {
+            if ("Quantity".equals(columns[column]) || "Rate".equals(columns[column])) {
+                return Integer.class;
+            }
+            return String.class;
+        }
+
+        public String getColumnName(int column) {
+            return columns[column];
+        }
+
+        public int getRowCount() {
+            return data.size();
+        }
+
+        public String getCurrentProduct(int row) {
+            return data.get(row).getProductID();
+        }
+        
+        public void append(SalesDetail d){
+            data.add(d);
+            fireTableDataChanged();
+        }
+    }
 }
