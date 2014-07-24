@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package hims;
+package com.whiteclover.himss;
 
 import java.util.Date;
 

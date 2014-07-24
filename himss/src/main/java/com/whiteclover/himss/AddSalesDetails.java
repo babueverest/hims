@@ -246,7 +246,7 @@ public class AddSalesDetails extends javax.swing.JFrame {
                 case "Date":
                     return data.get(row).getDate();
                 case "Name":
-                    return data.get(row).getName();
+                    return data.get(row).getCustomer_name();
                 case "ProductID":
                     return data.get(row).getProductID();
                 case "Quantity":

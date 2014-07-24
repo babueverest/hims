@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class SalesDetail {
     private Date date;
-    private String name;
+    private String customer_name;
     private String productID;
     private int quantity;
     private int rate;
@@ -17,8 +17,8 @@ public class SalesDetail {
         return date;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomer_name() {
+        return customer_name;
     }
 
     public String getProductID() {
@@ -37,8 +37,8 @@ public class SalesDetail {
         this.date = date;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomer_name(String customer_name) {
+        this.customer_name = customer_name;
     }
 
     public void setProductID(String productID) {
@@ -53,9 +53,9 @@ public class SalesDetail {
         this.rate = rate;
     }
 
-    public SalesDetail(Date date, String name, String productID, int quantity, int rate) {
+    public SalesDetail(Date date, String customer_name, String productID, int quantity, int rate) {
         this.date = date;
-        this.name = name;
+        this.customer_name = customer_name;
         this.productID = productID;
         this.quantity = quantity;
         this.rate = rate;
