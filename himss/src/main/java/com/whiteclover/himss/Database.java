@@ -18,9 +18,20 @@ public class Database {
         public static Connection createDatabaseConnection() throws SQLException, ClassNotFoundException {
 	String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 	Class.forName(driver);
-	String url = "jdbc:derby:hims";
-    	Connection c = DriverManager.getConnection(url);
-	return c;
+        Connection c;
+        try{
+            String url = "jdbc:derby:himsb";
+            c = DriverManager.getConnection(url);
+            return c;
+        }catch(SQLException ex){
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Creating database");
+            String url = "jdbc:derby:himsb;create=true";
+            c = DriverManager.getConnection(url);
+            create_table(c);
+            return c;
+        }
+        
       }
 
       public static void create_table(Connection cn) throws SQLException {
@@ -64,11 +75,8 @@ public class Database {
         try {
             // TODO code application logic here
             Connection cn = createDatabaseConnection();
-            create_table(cn);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (    SQLException | ClassNotFoundException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
