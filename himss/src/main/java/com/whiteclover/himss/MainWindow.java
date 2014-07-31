@@ -49,7 +49,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenu1.add(addBuyDetails);
 
-        addChangeDetails.setText("Add Change Details");
+        addChangeDetails.setText("Add Sales Details");
         addChangeDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addChangeDetailsActionPerformed(evt);

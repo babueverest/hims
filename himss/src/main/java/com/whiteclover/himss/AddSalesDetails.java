@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -49,6 +51,7 @@ public class AddSalesDetails extends javax.swing.JFrame {
         errorPlace = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        modifyButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,7 +76,11 @@ public class AddSalesDetails extends javax.swing.JFrame {
 
         tableModel = new AddSalesDetailTableModel();
         table.setModel(tableModel);
+        table.getSelectionModel().addListSelectionListener(listSelectionListener);
         jScrollPane2.setViewportView(table);
+
+        modifyButton.setText("Modify");
+        modifyButton.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,7 +92,10 @@ public class AddSalesDetails extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(addButton)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(modifyButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(addButton))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel5)
@@ -132,7 +142,9 @@ public class AddSalesDetails extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(errorPlace)
                 .addGap(5, 5, 5)
-                .addComponent(addButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addButton)
+                    .addComponent(modifyButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,6 +215,17 @@ public class AddSalesDetails extends javax.swing.JFrame {
             }
         });
     }
+    
+    ListSelectionListener listSelectionListener = new ListSelectionListener() {
+        @Override
+        public void valueChanged(ListSelectionEvent lse) {
+            if(tableModel!=null && table.getSelectedRow()>=0){
+                int selectedRow = table.getSelectedRow();
+                modifyButton.setEnabled(true);
+                System.out.println("Fuck" + selectedRow);
+            }
+        }
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -216,6 +239,7 @@ public class AddSalesDetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton modifyButton;
     private javax.swing.JTextField productID;
     private javax.swing.JTextField quantity;
     private javax.swing.JTextField rate;
