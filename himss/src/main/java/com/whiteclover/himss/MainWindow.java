@@ -79,7 +79,9 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBuyDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBuyDetailsActionPerformed
-        // TODO add your handling code here:
+        AddBuyDetails frame = new AddBuyDetails();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
     }//GEN-LAST:event_addBuyDetailsActionPerformed
 
     private void addChangeDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChangeDetailsActionPerformed
