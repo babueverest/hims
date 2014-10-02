@@ -54,6 +54,8 @@ public class AddSalesDetails extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         modifyButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        clearButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,6 +92,21 @@ public class AddSalesDetails extends javax.swing.JFrame {
             }
         });
 
+        deleteButton.setText("Delete");
+        deleteButton.setEnabled(false);
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,6 +118,10 @@ public class AddSalesDetails extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
+                                    .addComponent(clearButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(deleteButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(modifyButton)
                                     .addGap(18, 18, 18)
                                     .addComponent(addButton))
@@ -152,7 +173,9 @@ public class AddSalesDetails extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
-                    .addComponent(modifyButton))
+                    .addComponent(modifyButton)
+                    .addComponent(deleteButton)
+                    .addComponent(clearButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,6 +191,7 @@ public class AddSalesDetails extends javax.swing.JFrame {
         if (newData==null)
             return;
         tableModel.append(newData);
+        clearForm();
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
@@ -176,8 +200,17 @@ public class AddSalesDetails extends javax.swing.JFrame {
             return;
         int rowSelected = table.getSelectedRow();
         tableModel.modify(newDetail, rowSelected);
-        modifyButton.setEnabled(false);
     }//GEN-LAST:event_modifyButtonActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        clearForm();
+        table.clearSelection();
+    }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        int rowSelected = table.getSelectedRow();
+        tableModel.delete(rowSelected);
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,9 +253,14 @@ public class AddSalesDetails extends javax.swing.JFrame {
             if(tableModel!=null && table.getSelectedRow()>=0){
                 int selectedRow = table.getSelectedRow();
                 modifyButton.setEnabled(true);
+                deleteButton.setEnabled(true);
                 SalesDetail row = tableModel.getRow(selectedRow);
                 clearForm();
                 renderFormData(row);
+            }
+            else{
+                modifyButton.setEnabled(false);
+                deleteButton.setEnabled(false);
             }
         }
     };
@@ -273,8 +311,10 @@ public class AddSalesDetails extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JButton clearButton;
     private javax.swing.JTextField customerName;
     private com.toedter.calendar.JDateChooser date;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JLabel errorPlace;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -361,6 +401,10 @@ public class AddSalesDetails extends javax.swing.JFrame {
         }
         public void modify(SalesDetail newDetail, int row){
             data.set(row, newDetail);
+            fireTableDataChanged();
+        }
+        public void delete(int row){
+            data.remove(row);
             fireTableDataChanged();
         }
     }
