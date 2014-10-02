@@ -12,3 +12,6 @@
 hs_err_pid*
 /build/
 /himss/target/
+/SportsNonSports/nbproject/private/
+/NaiveBayes/nbproject/private/
+/NaiveBayes/build/

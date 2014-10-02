@@ -81,6 +81,11 @@ public class AddSalesDetails extends javax.swing.JFrame {
 
         modifyButton.setText("Modify");
         modifyButton.setEnabled(false);
+        modifyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,6 +185,10 @@ public class AddSalesDetails extends javax.swing.JFrame {
         SalesDetail newData = new SalesDetail(dateSel, nameSel, productIDSel, quantitySel, rateSel);
         tableModel.append(newData);
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modifyButtonActionPerformed
 
     /**
      * @param args the command line arguments
