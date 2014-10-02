@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.DefaultListSelectionModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -76,6 +78,7 @@ public class AddSalesDetails extends javax.swing.JFrame {
 
         tableModel = new AddSalesDetailTableModel();
         table.setModel(tableModel);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(listSelectionListener);
         jScrollPane2.setViewportView(table);
 
@@ -161,33 +164,19 @@ public class AddSalesDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        errorPlace.setText("");
-        Date dateSel = this.date.getDate();
-        String nameSel = this.customerName.getText();
-        String productIDSel = this.productID.getText();
-        int quantitySel = 0, rateSel = 0;
-        try {
-            quantitySel = Integer.parseInt(this.quantity.getText());
-        } catch (NumberFormatException e) {
-            errorPlace.setForeground(Color.RED);
-            errorPlace.setText("* Quantity isn't number.");
+        SalesDetail newData = getDataFromForm();
+        if (newData==null)
             return;
-        }
-        try {
-            rateSel = Integer.parseInt(this.rate.getText());
-        } catch (NumberFormatException e) {
-            errorPlace.setForeground(Color.RED);
-            errorPlace.setText("* Rate isn't number.");
-            return;
-        }
-
-        System.out.println(dateSel + " " + nameSel + " " + productIDSel + " " + quantitySel + " " + rateSel);
-        SalesDetail newData = new SalesDetail(dateSel, nameSel, productIDSel, quantitySel, rateSel);
         tableModel.append(newData);
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
-        // TODO add your handling code here:
+        SalesDetail newDetail = getDataFromForm();
+        if (newDetail==null)
+            return;
+        int rowSelected = table.getSelectedRow();
+        tableModel.modify(newDetail, rowSelected);
+        modifyButton.setEnabled(false);
     }//GEN-LAST:event_modifyButtonActionPerformed
 
     /**
@@ -231,10 +220,56 @@ public class AddSalesDetails extends javax.swing.JFrame {
             if(tableModel!=null && table.getSelectedRow()>=0){
                 int selectedRow = table.getSelectedRow();
                 modifyButton.setEnabled(true);
-                System.out.println("Fuck" + selectedRow);
+                SalesDetail row = tableModel.getRow(selectedRow);
+                clearForm();
+                renderFormData(row);
             }
         }
     };
+    
+    private void clearForm(){
+        date.setDate(new Date());
+        customerName.setText("");
+        errorPlace.setText("");
+        productID.setText("");
+        quantity.setText("");
+        rate.setText("");
+    }
+    
+    private void renderFormData(SalesDetail sales){
+        date.setDate(sales.getDate());
+        customerName.setText(sales.getCustomer_name());
+        errorPlace.setText("");
+        productID.setText(sales.getProductID());
+        quantity.setText(sales.getQuantity()+"");
+        rate.setText(sales.getRate()+"");
+    }
+    
+    private SalesDetail getDataFromForm(){
+        errorPlace.setText("");
+        Date dateSel = this.date.getDate();
+        String nameSel = this.customerName.getText();
+        String productIDSel = this.productID.getText();
+        int quantitySel = 0, rateSel = 0;
+        try {
+            quantitySel = Integer.parseInt(this.quantity.getText());
+        } catch (NumberFormatException e) {
+            errorPlace.setForeground(Color.RED);
+            errorPlace.setText("* Quantity isn't number.");
+            return null;
+        }
+        try {
+            rateSel = Integer.parseInt(this.rate.getText());
+        } catch (NumberFormatException e) {
+            errorPlace.setForeground(Color.RED);
+            errorPlace.setText("* Rate isn't number.");
+            return null;
+        }
+
+        System.out.println(dateSel + " " + nameSel + " " + productIDSel + " " + quantitySel + " " + rateSel);
+        SalesDetail newData = new SalesDetail(dateSel, nameSel, productIDSel, quantitySel, rateSel);
+        return newData;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -319,6 +354,13 @@ public class AddSalesDetails extends javax.swing.JFrame {
         
         public void append(SalesDetail d){
             data.add(d);
+            fireTableDataChanged();
+        }
+        public SalesDetail getRow(int rowNum){
+            return this.data.get(rowNum);
+        }
+        public void modify(SalesDetail newDetail, int row){
+            data.set(row, newDetail);
             fireTableDataChanged();
         }
     }

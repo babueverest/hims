@@ -167,7 +167,7 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="table">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="table.getSelectionModel().addListSelectionListener(listSelectionListener);">
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;table.getSelectionModel().addListSelectionListener(listSelectionListener);">
               <Connection code="tableModel" type="code"/>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
