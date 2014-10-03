@@ -15,6 +15,7 @@ public class SalesDetail {
 
     public java.sql.Date getDate() {
         java.sql.Date d = new java.sql.Date(date.getTime());
+        System.out.println(d);
         return d;
     }
 

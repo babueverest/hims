@@ -71,8 +71,8 @@ public class Database {
           Statement st=cn.createStatement();
           for(int i=0;i<=salesdetail.length;i++){
               
-          st.executeUpdate("insert into sales_details (date_of_sales, customer_name, productID, quantity, rate) values ("+
-                           salesdetail[i].getDate()+","+salesdetail[i].getCustomer_name()+","+salesdetail[i].getProductID()+","
+          st.executeUpdate("insert into sales_details (date_of_sales, customer_name, productID, quantity, rate) values ('"+
+                           salesdetail[i].getDate()+"','"+salesdetail[i].getCustomer_name()+"',"+"1,"
                            +salesdetail[i].getQuantity()+","+salesdetail[i].getRate()+")");
           st.close();
           }
