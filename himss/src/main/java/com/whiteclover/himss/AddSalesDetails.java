@@ -8,12 +8,16 @@ package com.whiteclover.himss;
 import java.awt.Color;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -27,6 +31,9 @@ public class AddSalesDetails extends javax.swing.JFrame {
 
     public AddSalesDetails() {
         initComponents();
+        String[] items = {"Apple", "Ball", "Cat", "Dog"};
+        JList list = new JList(items);
+        AutoCompleteDecorator.decorate(productID, Arrays.asList(items), true);
     }
 
     /**
