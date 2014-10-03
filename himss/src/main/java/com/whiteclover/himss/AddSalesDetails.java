@@ -6,11 +6,15 @@
 package com.whiteclover.himss;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
@@ -63,6 +67,7 @@ public class AddSalesDetails extends javax.swing.JFrame {
         modifyButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
+        commitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,6 +119,14 @@ public class AddSalesDetails extends javax.swing.JFrame {
             }
         });
 
+        commitButton.setText("Commit");
+        commitButton.setEnabled(false);
+        commitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commitButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,9 +160,11 @@ public class AddSalesDetails extends javax.swing.JFrame {
                                         .addComponent(rate)
                                         .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))))
                             .addComponent(errorPlace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 304, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(commitButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -182,7 +197,8 @@ public class AddSalesDetails extends javax.swing.JFrame {
                     .addComponent(addButton)
                     .addComponent(modifyButton)
                     .addComponent(deleteButton)
-                    .addComponent(clearButton))
+                    .addComponent(clearButton)
+                    .addComponent(commitButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -199,6 +215,7 @@ public class AddSalesDetails extends javax.swing.JFrame {
             return;
         tableModel.append(newData);
         clearForm();
+        pollCommitButtonState();
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
@@ -217,7 +234,21 @@ public class AddSalesDetails extends javax.swing.JFrame {
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int rowSelected = table.getSelectedRow();
         tableModel.delete(rowSelected);
+        pollCommitButtonState();
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void commitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commitButtonActionPerformed
+        ArrayList<SalesDetail> data = tableModel.getData();
+        SalesDetail[] arData = data.toArray(new SalesDetail[data.size()]);
+        try {
+            Connection con = Database.createDatabaseConnection();
+            Database.insert_sales_details(con, arData);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddSalesDetails.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AddSalesDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_commitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,10 +346,17 @@ public class AddSalesDetails extends javax.swing.JFrame {
         SalesDetail newData = new SalesDetail(dateSel, nameSel, productIDSel, quantitySel, rateSel);
         return newData;
     }
+    private void pollCommitButtonState(){
+        if (tableModel.getData().size()>0)
+            commitButton.setEnabled(true);
+        else
+            commitButton.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton clearButton;
+    private javax.swing.JButton commitButton;
     private javax.swing.JTextField customerName;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton deleteButton;
@@ -413,6 +451,9 @@ public class AddSalesDetails extends javax.swing.JFrame {
         public void delete(int row){
             data.remove(row);
             fireTableDataChanged();
+        }
+        public ArrayList<SalesDetail> getData(){
+            return this.data;
         }
     }
 }
