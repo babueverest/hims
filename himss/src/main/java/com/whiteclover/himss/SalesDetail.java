@@ -13,8 +13,9 @@ public class SalesDetail {
     private int quantity;
     private int rate;
 
-    public Date getDate() {
-        return date;
+    public java.sql.Date getDate() {
+        java.sql.Date d = new java.sql.Date(date.getTime());
+        return d;
     }
 
     public String getCustomer_name() {
