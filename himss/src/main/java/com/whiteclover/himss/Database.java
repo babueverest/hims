@@ -70,6 +70,7 @@ public class Database {
       public static void insert_sales_details(Connection cn,SalesDetail[] salesdetail) throws SQLException{
           Statement st=cn.createStatement();
           for(int i=0;i<=salesdetail.length;i++){
+              
           st.executeUpdate("insert into sales_details (date_of_sales, customer_name, productID, quantity, rate) values ("+
                            salesdetail[i].getDate()+","+salesdetail[i].getCustomer_name()+","+salesdetail[i].getProductID()+","
                            +salesdetail[i].getQuantity()+","+salesdetail[i].getRate()+")");

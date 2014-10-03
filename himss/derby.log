@@ -1,52 +1,8 @@
-Thu Oct 02 14:35:02 NPT 2014 Thread[main,5,main] Cleanup action starting
-java.sql.SQLException: Database 'himsa' not found.
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.handleDBNotFound(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
-	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
-	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
-	at java.sql.DriverManager.getConnection(DriverManager.java:571)
-	at java.sql.DriverManager.getConnection(DriverManager.java:233)
-	at com.whiteclover.himss.Database.createDatabaseConnection(Database.java:24)
-	at com.whiteclover.himss.Database.main(Database.java:85)
-Caused by: java.sql.SQLException: Database 'himsa' not found.
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
-	... 16 more
-============= begin nested exception, level (1) ===========
-java.sql.SQLException: Database 'himsa' not found.
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.handleDBNotFound(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
-	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
-	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
-	at java.sql.DriverManager.getConnection(DriverManager.java:571)
-	at java.sql.DriverManager.getConnection(DriverManager.java:233)
-	at com.whiteclover.himss.Database.createDatabaseConnection(Database.java:24)
-	at com.whiteclover.himss.Database.main(Database.java:85)
-============= end nested exception, level (1) ===========
-Cleanup action completed
 ----------------------------------------------------------------
-Thu Oct 02 14:35:02 NPT 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0148-d00d-40e9-00000a63bea8 
+Fri Oct 03 18:51:31 NPT 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0148-d61e-6ca4-000009de0098 
 on database directory /home/everest/NetBeansProjects/HIMS/himss/himsa with class loader sun.misc.Launcher$AppClassLoader@36db4bcf 
-Loaded from file:/home/everest/.m2/repository/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar
+Loaded from file:/home/everest/.m2/repository/org/apache/derby/derby/10.11.1.1/derby-10.11.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_65-b32
 user.dir=/home/everest/NetBeansProjects/HIMS/himss
